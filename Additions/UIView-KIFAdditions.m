@@ -24,6 +24,7 @@ double KIFRadiansToDegrees(double rad) {
 }
 
 static CGFloat const kTwoFingerConstantWidth = 40;
+static CGFloat const kMultiFingerConstantWidth = 20;
 
 @interface UIApplication (KIFAdditionsPrivate)
 - (UIEvent *)_touchesEvent;
@@ -601,6 +602,23 @@ NS_INLINE BOOL StringsMatchExceptLineBreaks(NSString *expected, NSString *actual
     NSArray *finger2Path = [self pointsFromStartPoint:finger2Start toPoint:finger2End steps:stepCount];
     NSArray *paths = @[finger1Path, finger2Path];
 
+    [self dragPointsAlongPaths:paths];
+}
+
+- (void)panFromPoint:(CGPoint)startPoint toPoint:(CGPoint)toPoint fingers:(NSUInteger)fingerCount steps:(NSUInteger)stepCount {
+    NSMutableArray *paths = [[NSMutableArray alloc] init];
+    
+    for (NSInteger i = 0; i < fingerCount; i++) {
+        //estimate the fingers to be in a line starting from the start point and moving to the right
+        CGPoint fingerStart = CGPointMake(startPoint.x + (kMultiFingerConstantWidth * i),
+                                           startPoint.y);
+        CGPoint fingerEnd = CGPointMake(toPoint.x + (kMultiFingerConstantWidth * i),
+                                         toPoint.y);
+        
+        NSArray *fingerPath = [self pointsFromStartPoint:fingerStart toPoint:fingerEnd steps:stepCount];
+        [paths addObject:fingerPath];
+    }
+    
     [self dragPointsAlongPaths:paths];
 }
 

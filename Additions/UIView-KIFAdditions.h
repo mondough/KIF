@@ -54,6 +54,7 @@ typedef CGPoint KIFDisplacement;
 - (void)dragFromPoint:(CGPoint)startPoint displacement:(KIFDisplacement)displacement steps:(NSUInteger)stepCount;
 - (void)dragAlongPathWithPoints:(CGPoint *)points count:(NSInteger)count;
 - (void)twoFingerPanFromPoint:(CGPoint)startPoint toPoint:(CGPoint)toPoint steps:(NSUInteger)stepCount;
+- (void)panFromPoint:(CGPoint)startPoint toPoint:(CGPoint)toPoint fingers:(NSUInteger)fingerCount steps:(NSUInteger)stepCount;
 - (void)pinchAtPoint:(CGPoint)centerPoint distance:(CGFloat)distance steps:(NSUInteger)stepCount;
 - (void)zoomAtPoint:(CGPoint)centerPoint distance:(CGFloat)distance steps:(NSUInteger)stepCount;
 - (void)twoFingerRotateAtPoint:(CGPoint)centerPoint angle:(CGFloat)angleInDegrees;
